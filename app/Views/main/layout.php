@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <?= $this->renderSection('contents') ?>
+                        <?= $this->renderSection('content') ?>
                     </div>
                     <!-- /.card-body -->
                 </div>
