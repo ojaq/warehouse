@@ -16,8 +16,21 @@ class Unit extends BaseController
 
     public function index()
     {
+        $searchbutton = $this->request->getPost('searchbutton');
+        if (isset($searchbutton)) {
+            $search = $this->request->getPost('search');
+            session()->set('search_unit', $search);
+            redirect()->to('unit/index');
+        } else {
+            $search = session()->get('search_unit');
+        }
+        $dataunit = $search ? $this->unit->searchData($search)->paginate(5, 'unit') : $this->unit->paginate(5, 'unit');
+        $pagenum = $this->request->getVar('page_unit') ? $this->request->getVar('page_unit') : 1;
         $data = [
-            'showdata' => $this->unit->findAll()
+            'showdata' => $dataunit,
+            'pager' => $this->unit->pager,
+            'pagenum' => $pagenum,
+            'search' => $search
         ];
         return view('unit/viewunit', $data);
     }

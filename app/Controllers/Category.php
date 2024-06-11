@@ -16,8 +16,21 @@ class Category extends BaseController
 
     public function index()
     {
+        $searchbutton = $this->request->getPost('searchbutton');
+        if(isset($searchbutton)){
+            $search = $this->request->getPost('search');
+            session()->set('search_category', $search);
+            redirect()->to('category/index');
+        } else {
+            $search = session()->get('search_category');
+        }
+        $datacategory = $search ? $this->category->searchData($search)->paginate(5, 'category') : $this->category->paginate(5, 'category');
+        $pagenum = $this->request->getVar('page_category') ? $this->request->getVar('page_category') : 1;
         $data = [
-            'showdata' => $this->category->findAll()
+            'showdata' => $datacategory,
+            'pager' => $this->category->pager,
+            'pagenum' => $pagenum,
+            'search' => $search
         ];
         return view('category/viewcategory', $data);
     }

@@ -13,6 +13,17 @@ Data Unit Management
 
 <?= $this->section('content') ?>
 <?= session()->getFlashdata('success') ?>
+
+<?= form_open('unit/index') ?>
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search unit!" name="search" value="<?= $search ?>">
+    <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="submit" id="searchbutton" name="searchbutton">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+<?= form_close() ?>
 <table class="table table-striped table-borderer" style="width: 100%;">
     <thead>
         <tr>
@@ -23,7 +34,7 @@ Data Unit Management
     </thead>
     <tbody>
         <?php
-        $number = 1;
+        $number = 1 + (($pagenum - 1) * 5);
         foreach ($showdata as $row) :
         ?>
             <tr>
@@ -45,6 +56,11 @@ Data Unit Management
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<div class="float-center">
+    <?= $pager->links('unit', 'paging') ?>
+</div>
+
 <script>
     function edit(id) {
         window.location = ('/unit/edit/' + id);
