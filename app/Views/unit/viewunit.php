@@ -27,9 +27,9 @@ Data Unit Management
         foreach ($showdata as $row):
         ?>
             <tr>
-                <th><?= $number++; ?></th>
-                <th><?= $row['unitname']; ?></th>
-                <th></th>
+                <td><?= $number++; ?></td>
+                <td><?= $row['unitname']; ?></td>
+                <td></td>
             </tr>
         <?php endforeach; ?>
     </tbody>

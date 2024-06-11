@@ -27,9 +27,11 @@ Data Category Management
         foreach ($showdata as $row) :
         ?>
             <tr>
-                <th><?= $number++; ?></th>
-                <th><?= $row['catname']; ?></th>
-                <th></th>
+                <td><?= $number++; ?></td>
+                <td><?= $row['catname']; ?></td>
+                <td>
+                    
+                </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
