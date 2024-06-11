@@ -63,19 +63,19 @@
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-header">Master</li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= site_url('category/index') ?>" class="nav-link">
                                 <i class="nav-icon fa fa-tasks text-primary"></i>
                                 <p class="text">Category</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= site_url('unit/index') ?>" class="nav-link">
                                 <i class="nav-icon fa fa-angle-double-right text-warning"></i>
                                 <p class="text">Unit</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= site_url('item/index') ?>" class="nav-link">
                                 <i class="nav-icon fa fa-tasks text-danger"></i>
                                 <p class="text">Item</p>
                             </a>
