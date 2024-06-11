@@ -52,10 +52,86 @@ class Unit extends BaseController
                 'unitname' => $unitname
             ]);
             $msg = [
-                'success' => '<div class="alert alert-success">Unit saved!</div>'
+                'success' => '<div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Success!</h5>
+                Unit added!
+              </div>'
             ];
             session()->setFlashdata($msg);
             return redirect()->to('unit/index');
+        }
+    }
+
+    public function edit($id)
+    {
+        $rowData = $this->unit->find($id);
+        if ($rowData) {
+            $data = [
+                'id' => $id,
+                'name' => $rowData['unitname']
+            ];
+            return view('unit/edit', $data);
+        } else {
+            exit('Data not found!');
+        }
+    }
+
+    public function update()
+    {
+        $unitname = $this->request->getVar('unitname');
+        $idunit = $this->request->getVar('idunit');
+        $validation = \Config\Services::validation();
+        $valid = $this->validate([
+            'unitname' => [
+                'rules' => 'required',
+                'label' => 'Unit',
+                'errors' => [
+                    'required' => '{field} cannot be empty!'
+                ]
+            ]
+        ]);
+
+        if (!$valid) {
+            $msg = [
+                'errorUnitName' => '<br><div class="alert alert-danger">' . $validation->getError('unitname') . '</div>'
+            ];
+            session()->setFlashdata($msg);
+            return redirect()->to('unit/edit/' . $idunit);
+        } else {
+            $this->unit->update($idunit, [
+                'unitname' => $unitname
+            ]);
+            $msg = [
+                'success' => '<div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Success!</h5>
+                Unit updated!
+              </div>'
+            ];
+            session()->setFlashdata($msg);
+            return redirect()->to('unit/index');
+        }
+    }
+
+    public function delete($id)
+    {
+        $rowData = $this->unit->find($id);
+        if ($rowData) {
+            $this->unit->delete($id);
+
+            $msg = [
+                'success' => '<div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Success!</h5>
+                Unit deleted!
+              </div>'
+            ];
+
+            session()->setFlashdata($msg);
+            return redirect()->to('unit/index');
+        } else {
+            exit('Data not found!');
         }
     }
 }

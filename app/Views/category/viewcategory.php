@@ -30,11 +30,29 @@ Data Category Management
                 <td><?= $number++; ?></td>
                 <td><?= $row['catname']; ?></td>
                 <td>
-                    
+                    <button type="button" class="btn btn-warning" title="Edit Data" onclick="edit('<?= $row['catid'] ?>')">
+                        <i class="fa fa-edit"></i>
+                    </button>
+
+                    <form method="post" action="/category/delete/<?= $row['catid'] ?>" style="display: inline;" onsubmit="return delet('<?= $row['catname'] ?>');">
+                        <input type="hidden" value="DELETE" name="_method">
+                        <button type="submit" class="btn btn-danger" title="Delete Data">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+<script>
+    function edit(id) {
+        window.location = ('/category/edit/' + id);
+    }
+
+    function delet(catname) {
+        return confirm('Are you sure you want to delete the category ' + catname + '?');
+    }
+</script>
 
 <?= $this->endSection('content') ?>

@@ -52,10 +52,86 @@ class Category extends BaseController
                 'catname' => $categoryname
             ]);
             $msg = [
-                'success' => '<div class="alert alert-success">Category saved!</div>'
+                'success' => '<div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Success!</h5>
+                Category added!
+              </div>'
             ];
             session()->setFlashdata($msg);
             return redirect()->to('category/index');
+        }
+    }
+
+    public function edit($id)
+    {
+        $rowData = $this->category->find($id);
+        if ($rowData) {
+            $data = [
+                'id' => $id,
+                'name' => $rowData['catname']
+            ];
+            return view('category/edit', $data);
+        } else {
+            exit('Data not found!');
+        }
+    }
+
+    public function update()
+    {
+        $categoryname = $this->request->getVar('categoryname');
+        $idcategory = $this->request->getVar('idcategory');
+        $validation = \Config\Services::validation();
+        $valid = $this->validate([
+            'categoryname' => [
+                'rules' => 'required',
+                'label' => 'Category',
+                'errors' => [
+                    'required' => '{field} cannot be empty!'
+                ]
+            ]
+        ]);
+
+        if (!$valid) {
+            $msg = [
+                'errorCategoryName' => '<br><div class="alert alert-danger">' . $validation->getError('categoryname') . '</div>'
+            ];
+            session()->setFlashdata($msg);
+            return redirect()->to('category/edit/' . $idcategory);
+        } else {
+            $this->category->update($idcategory, [
+                'catname' => $categoryname
+            ]);
+            $msg = [
+                'success' => '<div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Success!</h5>
+                Category updated!
+              </div>'
+            ];
+            session()->setFlashdata($msg);
+            return redirect()->to('category/index');
+        }
+    }
+
+    public function delete($id)
+    {
+        $rowData = $this->category->find($id);
+        if ($rowData) {
+            $this->category->delete($id);
+
+            $msg = [
+                'success' => '<div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-check"></i> Success!</h5>
+                Category deleted!
+              </div>'
+            ];
+
+            session()->setFlashdata($msg);
+            return redirect()->to('category/index');
+        } else {
+            exit('Data not found!');
         }
     }
 }
