@@ -24,7 +24,7 @@ Data Unit Management
     </div>
 </div>
 <?= form_close() ?>
-<table class="table table-striped table-borderer" style="width: 100%;">
+<table class="table table-striped table-bordered" style="width: 100%;">
     <thead>
         <tr>
             <th style="width: 5%;">No</th>

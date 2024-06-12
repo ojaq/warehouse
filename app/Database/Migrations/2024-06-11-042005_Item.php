@@ -31,6 +31,10 @@ class Item extends Migration
             'itemimage' => [
                 'type' => 'VARCHAR',
                 'constraint' => '200'
+            ],
+            'itemstock' => [
+                'type' => 'INT',
+                'constraint' => '100'
             ]
         ]);
 
