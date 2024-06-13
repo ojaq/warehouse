@@ -13,6 +13,7 @@ Data Item Management
 <?= $this->section('content') ?>
 <?= session()->getFlashdata('msg') ?>
 <?= session()->getFlashdata('errmsg') ?>
+<?= session()->getFlashdata('deleted') ?>
 <?= session()->getFlashdata('saved') ?>
 <?= session()->getFlashdata('updated') ?>
 <table class="table table-striped table-bordered" style="width: 100%;">

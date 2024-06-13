@@ -271,15 +271,15 @@ class Item extends BaseController
         if ($rowData) {
             $this->item->delete($id);
 
-            $msg = [
-                'success' => '<div class="alert alert-warning alert-dismissible">
+            $deleted = [
+                'deleted' => '<div class="alert alert-warning alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h5><i class="icon fas fa-check"></i> Success!</h5>
                 Item deleted!
               </div>'
             ];
 
-            session()->setFlashdata($msg);
+            session()->setFlashdata($deleted);
             return redirect()->to('item/index');
         } else {
             exit('Data not found!');
